@@ -6,6 +6,11 @@ export interface Template {
   icon: string;
   repoUrl: string;
   category: "Web" | "Mobile" | "API" | "Data";
+  stars: number;
+  updatedAt: string; // ISO string for freshness badge
+  difficulty: "Starter" | "Sprint" | "Pro";
+  deployTarget: "vercel" | "docker" | "edge";
+  tags: string[];
 }
 
 export interface User {

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { AppView, Template, Project, User } from "./types";
 import { TEMPLATES, MOCK_USER } from "./constants";
-import { Card, Button, Badge } from "./components/UI";
+import { Card, Button, Badge, Pill, useToast } from "./components/UI";
 import { Generator } from "./pages/Generator";
 import { Zap, Github, ExternalLink, CheckSquare, Plus, Code, Box, Rocket } from "lucide-react";
 
@@ -10,15 +10,22 @@ export default function App() {
   const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(null);
   const [currentProject, setCurrentProject] = useState<Project | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<Template["category"] | "All">("All");
+  const { push } = useToast();
 
   const handleLogin = () => {
     // Mock login
     setTimeout(() => setUser(MOCK_USER), 800);
+    push({ title: "Signing you in...", description: "Fetching your GitHub profile", variant: "default" });
   };
 
   const handleSelectTemplate = (t: Template) => {
     if (!user) {
-      alert("Please login with GitHub first");
+      push({
+        title: "Sign in to continue",
+        description: "Hackpack needs GitHub to generate your repo and issues",
+        variant: "error",
+      });
       return;
     }
     setSelectedTemplate(t);
@@ -29,6 +36,11 @@ export default function App() {
     setCurrentProject(p);
     setView(AppView.SUCCESS);
   };
+
+  const filteredTemplates = useMemo(() => {
+    if (categoryFilter === "All") return TEMPLATES;
+    return TEMPLATES.filter((t) => t.category === categoryFilter);
+  }, [categoryFilter]);
 
   return (
     <div className="min-h-screen text-slate-800 pb-20">
@@ -66,17 +78,14 @@ export default function App() {
             <section className="relative pt-20 pb-16 px-6 text-center max-w-4xl mx-auto">
               <Badge>v1.0 Public Beta</Badge>
               <h1 className="mt-6 text-5xl md:text-7xl font-display font-bold tracking-tight text-slate-900 mb-6">
-                Ship your hackathon idea <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
-                  before lunch.
-                </span>
+                Turn "stuck" into <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">shipped</span>
               </h1>
               <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Instant boilerplate generation. Auto-configured GitHub repos. One-click Vercel deploys. The unfair advantage for builders.
+                Hackpack feels like a mini hackathon: fast auth, a real repo, a README that tells you what to do, and a deploy link before the coffee cools.
               </p>
               {!user && (
                  <Button className="mx-auto pl-5 pr-6 h-14 text-lg" onClick={handleLogin}>
-                  <Github className="w-5 h-5" /> Login with GitHub to Start
+                  <Github className="w-5 h-5" /> Login with GitHub to start
                 </Button>
               )}
             </section>
@@ -84,12 +93,27 @@ export default function App() {
             {/* Templates Grid */}
             <section className="px-6 max-w-6xl mx-auto">
               <div className="flex items-center justify-between mb-8">
-                 <h3 className="text-2xl font-bold text-slate-800">Choose your stack</h3>
-                 <div className="text-sm text-slate-500">5 templates available</div>
+                 <div>
+                   <p className="text-sm uppercase tracking-[0.18em] text-slate-400 font-semibold">Template Library</p>
+                   <h3 className="text-2xl font-bold text-slate-800 mt-1">Pick a mission, not a TODO</h3>
+                 </div>
+                 <div className="text-sm text-slate-500">{filteredTemplates.length} shown · {TEMPLATES.length} total</div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {["All", "Web", "API", "Data", "Mobile"].map((cat) => (
+                  <Pill
+                    key={cat}
+                    active={categoryFilter === cat}
+                    onClick={() => setCategoryFilter(cat as Template["category"] | "All")}
+                  >
+                    {cat}
+                  </Pill>
+                ))}
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {TEMPLATES.map((t) => (
+                {filteredTemplates.map((t) => (
                   <Card key={t.id} onClick={() => handleSelectTemplate(t)} className="group h-full flex flex-col">
                     <div className="flex items-start justify-between mb-4">
                       <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shadow-sm border border-slate-100 group-hover:scale-110 transition-transform duration-300">
@@ -97,10 +121,16 @@ export default function App() {
                       </div>
                       <Badge>{t.category}</Badge>
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 mb-2">{t.name}</h4>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{t.description}</p>
+                    <h4 className="text-lg font-bold text-slate-900 mb-1">{t.name}</h4>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">{t.description}</p>
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
+                      <span className="font-semibold text-slate-700">{t.difficulty}</span>
+                      <span>{t.stars}★</span>
+                      <span>Updated {new Date(t.updatedAt).toLocaleDateString()}</span>
+                      <span className="capitalize">{t.deployTarget}</span>
+                    </div>
                     <div className="flex flex-wrap gap-2 mt-auto">
-                      {t.techStack.map((tech) => (
+                      {[...t.techStack, ...t.tags].slice(0, 6).map((tech) => (
                         <span key={tech} className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">
                           {tech}
                         </span>
