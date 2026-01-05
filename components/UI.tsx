@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 // Button Component
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,13 +23,19 @@ export const Button: React.FC<ButtonProps> = ({
     "relative overflow-hidden px-6 py-3 rounded-full font-medium text-[15px] transition-all duration-300 active:scale-95 disabled:opacity-70 disabled:active:scale-100 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)]";
 
   const variants = {
-    primary: "bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-600",
-    secondary: "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50",
-    glass: "bg-white/60 backdrop-blur-md border border-white/70 text-slate-800 hover:bg-white/80",
+    primary:
+      "bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-600",
+    secondary:
+      "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50",
+    glass:
+      "bg-white/60 backdrop-blur-md border border-white/70 text-slate-800 hover:bg-white/80",
   };
 
   return (
-    <button className={`${baseStyle} ${variants[variant]} ${className}`} {...props}>
+    <button
+      className={`${baseStyle} ${variants[variant]} ${className}`}
+      {...props}
+    >
       {isLoading ? (
         <span className="animate-spin h-4 w-4 border-2 border-white/50 border-t-white rounded-full block" />
       ) : (
@@ -34,11 +46,11 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 // Card Component
-export const Card: React.FC<{ children: React.ReactNode; className?: string; onClick?: () => void }> = ({
-  children,
-  className = "",
-  onClick,
-}) => (
+export const Card: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+}> = ({ children, className = "", onClick }) => (
   <div
     onClick={onClick}
     className={`glass-panel p-6 rounded-3xl transition-all duration-300 ${
@@ -50,14 +62,18 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string; onC
 );
 
 // Badge Component
-export const Badge: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+export const Badge: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
   <span className="px-2.5 py-0.5 rounded-md bg-slate-100/50 border border-slate-200/50 text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
     {children}
   </span>
 );
 
 // Input Component
-export const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (props) => (
+export const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (
+  props
+) => (
   <input
     className="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-white transition-all"
     {...props}
@@ -65,11 +81,11 @@ export const Input: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = (pro
 );
 
 // Pill Component for filters/tags
-export const Pill: React.FC<{ active?: boolean; onClick?: () => void; children: React.ReactNode }> = ({
-  active,
-  onClick,
-  children,
-}) => (
+export const Pill: React.FC<{
+  active?: boolean;
+  onClick?: () => void;
+  children: React.ReactNode;
+}> = ({ active, onClick, children }) => (
   <button
     type="button"
     onClick={onClick}
@@ -84,10 +100,11 @@ export const Pill: React.FC<{ active?: boolean; onClick?: () => void; children: 
 );
 
 // Modal Container
-export const Modal: React.FC<{ isOpen: boolean; onClose: () => void; children: React.ReactNode }> = ({
-  isOpen,
-  children,
-}) => {
+export const Modal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}> = ({ isOpen, children }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -118,13 +135,18 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const dismiss = (id: string) => setToasts((prev) => prev.filter((t) => t.id !== id));
+  const dismiss = (id: string) =>
+    setToasts((prev) => prev.filter((t) => t.id !== id));
 
   const push = (toast: Omit<ToastItem, "id">) => {
-    const id = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+    const id = crypto.randomUUID
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2);
     const duration = toast.duration ?? 3200;
     setToasts((prev) => [...prev, { ...toast, id, duration }]);
   };
@@ -152,10 +174,10 @@ export const useToast = () => {
   return ctx;
 };
 
-const ToastViewport: React.FC<{ toasts: ToastItem[]; onDismiss: (id: string) => void }> = ({
-  toasts,
-  onDismiss,
-}) => (
+const ToastViewport: React.FC<{
+  toasts: ToastItem[];
+  onDismiss: (id: string) => void;
+}> = ({ toasts, onDismiss }) => (
   <div className="fixed top-4 right-4 z-50 flex flex-col gap-3 max-w-sm">
     {toasts.map((toast) => {
       const palette = {
@@ -167,13 +189,19 @@ const ToastViewport: React.FC<{ toasts: ToastItem[]; onDismiss: (id: string) => 
       return (
         <div
           key={toast.id}
-          className={`border rounded-2xl shadow-lg shadow-black/5 px-4 py-3 backdrop-blur-md animate-slide-up ${palette[toast.variant ?? "default"]}`}
+          className={`border rounded-2xl shadow-lg shadow-black/5 px-4 py-3 backdrop-blur-md animate-slide-up ${
+            palette[toast.variant ?? "default"]
+          }`}
         >
           <div className="flex items-start gap-3">
             <div className="flex-1">
-              <div className="text-sm font-semibold leading-tight">{toast.title}</div>
+              <div className="text-sm font-semibold leading-tight">
+                {toast.title}
+              </div>
               {toast.description && (
-                <div className="text-xs text-slate-600 mt-1 leading-relaxed">{toast.description}</div>
+                <div className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  {toast.description}
+                </div>
               )}
             </div>
             <button

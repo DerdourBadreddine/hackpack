@@ -4,7 +4,8 @@ export const TEMPLATES: Template[] = [
   {
     id: "next-starter",
     name: "Next.js SaaS Starter",
-    description: "Complete stack with Tailwind, Auth stub, and API routes ready for Vercel.",
+    description:
+      "Complete stack with Tailwind, Auth stub, and API routes ready for Vercel.",
     techStack: ["Next.js", "Tailwind", "TypeScript"],
     icon: "⚡️",
     repoUrl: "github.com/hackpack/next-starter",
@@ -18,7 +19,8 @@ export const TEMPLATES: Template[] = [
   {
     id: "express-api",
     name: "Express API Micro",
-    description: "Lightweight REST API with SQLite setup and Dockerfile included.",
+    description:
+      "Lightweight REST API with SQLite setup and Dockerfile included.",
     techStack: ["Express", "Node.js", "Docker"],
     icon: "🚀",
     repoUrl: "github.com/hackpack/express-api",
@@ -32,7 +34,8 @@ export const TEMPLATES: Template[] = [
   {
     id: "flask-ml",
     name: "Flask ML Lite",
-    description: "Python Flask server with Scikit-learn ready for model serving.",
+    description:
+      "Python Flask server with Scikit-learn ready for model serving.",
     techStack: ["Python", "Flask", "Scikit-learn"],
     icon: "🤖",
     repoUrl: "github.com/hackpack/flask-ml",
@@ -46,7 +49,8 @@ export const TEMPLATES: Template[] = [
   {
     id: "expo-mobile",
     name: "Expo Mobile Stub",
-    description: "React Native boilerplate with Navigation and polished UI components.",
+    description:
+      "React Native boilerplate with Navigation and polished UI components.",
     techStack: ["React Native", "Expo", "TypeScript"],
     icon: "📱",
     repoUrl: "github.com/hackpack/expo-stub",
@@ -60,7 +64,8 @@ export const TEMPLATES: Template[] = [
   {
     id: "supabase-crud",
     name: "Supabase CRUD",
-    description: "React frontend with pre-configured Supabase client and Auth UI.",
+    description:
+      "React frontend with pre-configured Supabase client and Auth UI.",
     techStack: ["React", "Supabase", "Postgres"],
     icon: "🔥",
     repoUrl: "github.com/hackpack/supabase-crud",
