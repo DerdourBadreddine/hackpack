@@ -1,0 +1,5 @@
+{
+  "name": "Hackpack",
+  "description": "Bite-sized Project Generator + Boilerplate Deployer. Apple-inspired UI for generating and deploying hackathon starter kits.",
+  "requestFramePermissions": []
+}
