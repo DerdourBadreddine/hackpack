@@ -135,12 +135,15 @@ export default function App() {
                     Ship production-ready bases with an Apple-grade polish.
                   </h1>
                   <p className="text-lg text-slate-500 max-w-2xl mt-6 leading-relaxed">
-                    Auth, repos, and deploys in one flow. Hackpack assembles your
-                    stack, writes the README, and hands you a live URL. No emojis,
-                    just crisp UI that feels ready for a client demo.
+                    Auth, repos, and deploys in one flow. Hackpack assembles
+                    your stack, writes the README, and hands you a live URL. No
+                    emojis, just crisp UI that feels ready for a client demo.
                   </p>
                   <div className="flex flex-wrap items-center gap-3 mt-8">
-                    <Button className="pl-5 pr-6 h-12 text-base" onClick={handleLogin}>
+                    <Button
+                      className="pl-5 pr-6 h-12 text-base"
+                      onClick={handleLogin}
+                    >
                       <Github className="w-5 h-5" /> Login with GitHub
                     </Button>
                     <Button
@@ -171,8 +174,12 @@ export default function App() {
                           <Rocket className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">Provision repo</p>
-                          <p className="text-slate-500 text-xs">GitHub OAuth, branch protection, and tasks.</p>
+                          <p className="font-semibold text-slate-900">
+                            Provision repo
+                          </p>
+                          <p className="text-slate-500 text-xs">
+                            GitHub OAuth, branch protection, and tasks.
+                          </p>
                         </div>
                         <span className="text-[11px] text-green-600 font-semibold px-2 py-1 bg-green-50 rounded-lg">
                           Auto
@@ -183,8 +190,12 @@ export default function App() {
                           <Zap className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">Deploy instantly</p>
-                          <p className="text-slate-500 text-xs">Vercel-ready config with env placeholders.</p>
+                          <p className="font-semibold text-slate-900">
+                            Deploy instantly
+                          </p>
+                          <p className="text-slate-500 text-xs">
+                            Vercel-ready config with env placeholders.
+                          </p>
                         </div>
                         <ArrowUpRight className="w-4 h-4 text-slate-400" />
                       </div>
@@ -193,8 +204,12 @@ export default function App() {
                           <CheckSquare className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">Launch checklist</p>
-                          <p className="text-slate-500 text-xs">Issue queue with the first 3 hours mapped.</p>
+                          <p className="font-semibold text-slate-900">
+                            Launch checklist
+                          </p>
+                          <p className="text-slate-500 text-xs">
+                            Issue queue with the first 3 hours mapped.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -202,7 +217,12 @@ export default function App() {
                 </div>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-slate-600">
-                {["Auth & repo wiring", "Production defaults", "Fast handoff", "Client-safe UI"].map((item) => (
+                {[
+                  "Auth & repo wiring",
+                  "Production defaults",
+                  "Fast handoff",
+                  "Client-safe UI",
+                ].map((item) => (
                   <div
                     key={item}
                     className="rounded-2xl bg-white/70 border border-slate-100 p-3 flex items-center gap-2 shadow-[0_10px_40px_-32px_rgba(15,23,42,0.4)]"
