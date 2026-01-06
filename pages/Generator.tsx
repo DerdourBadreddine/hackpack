@@ -91,18 +91,18 @@ export const Generator: React.FC<GeneratorProps> = ({
       <div className="max-w-2xl mx-auto pt-10 px-4">
         <button
           onClick={onCancel}
-          className="text-slate-400 hover:text-slate-600 mb-6 text-sm font-medium"
+          className="text-slate-400 hover:text-slate-600 mb-6 text-sm font-medium dark:text-slate-500 dark:hover:text-slate-300"
         >
           ← Back to Templates
         </button>
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6 dark:bg-white dark:text-slate-900">
             <template.icon className="w-6 h-6" />
           </div>
-          <h2 className="text-3xl font-display font-bold text-slate-900 mb-2">
+          <h2 className="text-3xl font-display font-bold text-slate-900 mb-2 dark:text-white">
             Configure Project
           </h2>
-          <p className="text-slate-500">
+          <p className="text-slate-500 dark:text-slate-300">
             Kickstart your {template.name} repository.
           </p>
         </div>
@@ -127,7 +127,7 @@ export const Generator: React.FC<GeneratorProps> = ({
               </p>
             </div>
 
-            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
               <div className="flex items-center gap-3">
                 <Github className="w-5 h-5 text-slate-700" />
                 <span className="text-sm font-medium text-slate-600">
@@ -149,23 +149,23 @@ export const Generator: React.FC<GeneratorProps> = ({
           </div>
         </Card>
 
-        <div className="mt-6 grid md:grid-cols-3 gap-4 text-left text-sm text-slate-600">
-          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100">
-            <p className="font-semibold text-slate-800 mb-1">What happens</p>
+        <div className="mt-6 grid md:grid-cols-3 gap-4 text-left text-sm text-slate-600 dark:text-slate-300">
+          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">What happens</p>
             <p>
               We clone {template.name}, rename packages, and prep README/issues
               before first push.
             </p>
           </div>
-          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100">
-            <p className="font-semibold text-slate-800 mb-1">You own it</p>
+          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">You own it</p>
             <p>
               Repos stay in your GitHub. Tokens never touch our storage in a
               real build.
             </p>
           </div>
-          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100">
-            <p className="font-semibold text-slate-800 mb-1">Deploy fast</p>
+          <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">Deploy fast</p>
             <p>
               We trigger the template deploy hook so you get a live URL in
               minutes.

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AppView, Template, Project, User } from "./types";
 import { TEMPLATES, MOCK_USER } from "./constants";
 import { Card, Button, Badge, Pill, useToast } from "./components/UI";
@@ -13,6 +13,8 @@ import {
   ArrowUpRight,
   ShieldCheck,
   Sparkles,
+  Moon,
+  SunMedium,
 } from "lucide-react";
 
 export default function App() {
@@ -25,7 +27,21 @@ export default function App() {
   const [categoryFilter, setCategoryFilter] = useState<
     Template["category"] | "All"
   >("All");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    const stored = window.localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
   const { push } = useToast();
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    window.localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const handleLogin = () => {
     // Mock login
@@ -61,38 +77,50 @@ export default function App() {
   }, [categoryFilter]);
 
   return (
-    <div className="min-h-screen text-slate-900 pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 relative overflow-hidden">
+    <div className="min-h-screen text-slate-900 dark:text-slate-100 pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-black relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 -top-40 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl" />
-        <div className="absolute right-[-20%] top-10 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl" />
-        <div className="absolute left-10 bottom-0 h-64 w-64 rounded-full bg-white shadow-2xl shadow-white/40" />
+        <div className="absolute -left-32 -top-40 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl dark:bg-sky-900/30" />
+        <div className="absolute right-[-20%] top-10 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl dark:bg-indigo-900/20" />
+        <div className="absolute left-10 bottom-0 h-64 w-64 rounded-full bg-white shadow-2xl shadow-white/40 dark:bg-slate-900 dark:shadow-slate-900/40" />
       </div>
       {/* Navbar */}
-      <nav className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-white/60 bg-white/70">
+      <nav className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-white/60 bg-white/70 dark:bg-slate-900/70 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setView(AppView.LANDING)}
           >
-            <div className="w-9 h-9 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-slate-900/15">
+            <div className="w-9 h-9 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-slate-900/15 dark:bg-white dark:text-slate-900">
               H
             </div>
             <div className="flex flex-col leading-tight">
               <span className="font-display font-semibold text-lg tracking-tight">
                 Hackpack
               </span>
-              <span className="text-[11px] uppercase tracking-[0.28em] text-slate-400 font-semibold">
+              <span className="text-[11px] uppercase tracking-[0.28em] text-slate-400 font-semibold dark:text-slate-500">
                 Studio
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="glass"
+              className="h-10 px-4 rounded-xl border border-slate-200/60 dark:border-white/10"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? (
+                <SunMedium className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+              {theme === "dark" ? "Light" : "Dark"} mode
+            </Button>
             {user ? (
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setView(AppView.LANDING)}
-                  className="text-sm font-medium text-slate-600 hover:text-primary transition-colors"
+                  className="text-sm font-medium text-slate-600 hover:text-primary transition-colors dark:text-slate-200"
                 >
                   Templates
                 </button>
@@ -131,10 +159,10 @@ export default function App() {
                       Private by design
                     </div>
                   </div>
-                  <h1 className="mt-6 text-5xl md:text-6xl font-display font-bold tracking-tight text-slate-900 leading-tight">
+                  <h1 className="mt-6 text-5xl md:text-6xl font-display font-bold tracking-tight text-slate-900 leading-tight dark:text-white">
                     Ship production-ready bases with an Apple-grade polish.
                   </h1>
-                  <p className="text-lg text-slate-500 max-w-2xl mt-6 leading-relaxed">
+                  <p className="text-lg text-slate-500 max-w-2xl mt-6 leading-relaxed dark:text-slate-300">
                     Auth, repos, and deploys in one flow. Hackpack assembles
                     your stack, writes the README, and hands you a live URL. No
                     emojis, just crisp UI that feels ready for a client demo.
@@ -156,7 +184,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="relative">
-                  <div className="glass-panel rounded-3xl p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)] border border-white/70">
+                  <div className="glass-panel rounded-3xl p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)] border border-white/70 dark:border-white/10 dark:bg-white/5">
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <p className="text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
@@ -168,16 +196,16 @@ export default function App() {
                       </div>
                       <Sparkles className="w-5 h-5 text-primary" />
                     </div>
-                    <div className="space-y-3 text-sm text-slate-700">
-                      <div className="flex items-center gap-3 bg-white/80 rounded-2xl p-3 border border-slate-100">
-                        <div className="h-10 w-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center">
+                    <div className="space-y-3 text-sm text-slate-700 dark:text-slate-200">
+                      <div className="flex items-center gap-3 bg-white/80 rounded-2xl p-3 border border-slate-100 dark:bg-white/10 dark:border-white/10">
+                        <div className="h-10 w-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center dark:bg-white dark:text-slate-900">
                           <Rocket className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">
+                          <p className="font-semibold text-slate-900 dark:text-white">
                             Provision repo
                           </p>
-                          <p className="text-slate-500 text-xs">
+                          <p className="text-slate-500 text-xs dark:text-slate-400">
                             GitHub OAuth, branch protection, and tasks.
                           </p>
                         </div>
@@ -185,29 +213,29 @@ export default function App() {
                           Auto
                         </span>
                       </div>
-                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100">
+                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100 dark:bg-white/5 dark:border-white/10">
                         <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-primary to-indigo-500 text-white flex items-center justify-center">
                           <Zap className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">
+                          <p className="font-semibold text-slate-900 dark:text-white">
                             Deploy instantly
                           </p>
-                          <p className="text-slate-500 text-xs">
+                          <p className="text-slate-500 text-xs dark:text-slate-400">
                             Vercel-ready config with env placeholders.
                           </p>
                         </div>
                         <ArrowUpRight className="w-4 h-4 text-slate-400" />
                       </div>
-                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100">
-                        <div className="h-10 w-10 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center">
+                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100 dark:bg-white/5 dark:border-white/10">
+                        <div className="h-10 w-10 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center dark:bg-white/10 dark:text-white">
                           <CheckSquare className="w-5 h-5" />
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-slate-900">
+                          <p className="font-semibold text-slate-900 dark:text-white">
                             Launch checklist
                           </p>
-                          <p className="text-slate-500 text-xs">
+                          <p className="text-slate-500 text-xs dark:text-slate-400">
                             Issue queue with the first 3 hours mapped.
                           </p>
                         </div>
@@ -216,7 +244,7 @@ export default function App() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-slate-600">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-slate-600 dark:text-slate-300">
                 {[
                   "Auth & repo wiring",
                   "Production defaults",
@@ -225,12 +253,12 @@ export default function App() {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="rounded-2xl bg-white/70 border border-slate-100 p-3 flex items-center gap-2 shadow-[0_10px_40px_-32px_rgba(15,23,42,0.4)]"
+                    className="rounded-2xl bg-white/70 border border-slate-100 p-3 flex items-center gap-2 shadow-[0_10px_40px_-32px_rgba(15,23,42,0.4)] dark:bg-white/5 dark:border-white/10"
                   >
-                    <div className="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-semibold">
+                    <div className="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-semibold dark:bg-white dark:text-slate-900">
                       ●
                     </div>
-                    <span className="font-medium text-slate-800">{item}</span>
+                    <span className="font-medium text-slate-800 dark:text-white">{item}</span>
                   </div>
                 ))}
               </div>
@@ -243,11 +271,11 @@ export default function App() {
                   <p className="text-sm uppercase tracking-[0.18em] text-slate-400 font-semibold">
                     Template Library
                   </p>
-                  <h3 className="text-2xl font-bold text-slate-800 mt-1">
+                  <h3 className="text-2xl font-bold text-slate-800 mt-1 dark:text-white">
                     Pick a mission, not a TODO
                   </h3>
                 </div>
-                <div className="text-sm text-slate-500">
+                <div className="text-sm text-slate-500 dark:text-slate-300">
                   {filteredTemplates.length} shown · {TEMPLATES.length} total
                 </div>
               </div>
@@ -271,22 +299,22 @@ export default function App() {
                   <Card
                     key={t.id}
                     onClick={() => handleSelectTemplate(t)}
-                    className="group h-full flex flex-col border border-white/70 bg-white/80 hover:bg-white shadow-[0_24px_80px_-48px_rgba(15,23,42,0.6)]"
+                    className="group h-full flex flex-col border border-white/70 bg-white/80 hover:bg-white shadow-[0_24px_80px_-48px_rgba(15,23,42,0.6)] dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10"
                   >
                     <div className="flex items-start justify-between mb-5">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10 group-hover:-translate-y-1 transition-all">
+                      <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10 group-hover:-translate-y-1 transition-all dark:bg-white dark:text-slate-900">
                         <t.icon className="w-5 h-5" />
                       </div>
                       <Badge>{t.category}</Badge>
                     </div>
-                    <h4 className="text-lg font-bold text-slate-900 mb-1">
+                    <h4 className="text-lg font-bold text-slate-900 mb-1 dark:text-white">
                       {t.name}
                     </h4>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow">
+                    <p className="text-slate-500 text-sm leading-relaxed mb-4 flex-grow dark:text-slate-300">
                       {t.description}
                     </p>
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
-                      <span className="font-semibold text-slate-700">
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-4 dark:text-slate-300">
+                      <span className="font-semibold text-slate-700 dark:text-slate-200">
                         {t.difficulty}
                       </span>
                       <span>{t.stars}★</span>
@@ -299,7 +327,7 @@ export default function App() {
                       {[...t.techStack, ...t.tags].slice(0, 6).map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded-lg"
+                          className="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded-lg dark:bg-white/10 dark:text-slate-200"
                         >
                           {tech}
                         </span>
@@ -330,11 +358,11 @@ export default function App() {
               <div className="w-20 h-20 bg-green-500 text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-xl shadow-green-500/30">
                 <Zap className="w-10 h-10 fill-current" />
               </div>
-              <h2 className="text-4xl font-display font-bold text-slate-900 mb-4">
+              <h2 className="text-4xl font-display font-bold text-slate-900 mb-4 dark:text-white">
                 You're live!
               </h2>
-              <p className="text-xl text-slate-500">
-                <span className="font-semibold text-slate-800">
+              <p className="text-xl text-slate-500 dark:text-slate-300">
+                <span className="font-semibold text-slate-800 dark:text-white">
                   {currentProject.name}
                 </span>{" "}
                 has been generated and deployed.
@@ -393,7 +421,7 @@ export default function App() {
                 {currentProject.tasks.map((task) => (
                   <div
                     key={task.id}
-                    className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm"
+                    className="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm dark:bg-white/5 dark:border-white/10"
                   >
                     <div
                       className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
@@ -410,7 +438,7 @@ export default function App() {
                       className={`${
                         task.isCompleted
                           ? "text-slate-400 line-through"
-                          : "text-slate-700 font-medium"
+                          : "text-slate-700 font-medium dark:text-slate-200"
                       }`}
                     >
                       {task.title}
