@@ -39,7 +39,10 @@ export default function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
+    const body = document.body;
+    const enableDark = theme === "dark";
+    [root, body].forEach((el) => el.classList.toggle("dark", enableDark));
+    body.style.colorScheme = enableDark ? "dark" : "light";
     window.localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -77,21 +80,20 @@ export default function App() {
   }, [categoryFilter]);
 
   return (
-    <div className="min-h-screen text-slate-900 dark:text-slate-100 pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-black relative overflow-hidden">
+    <div className="min-h-screen text-slate-900 dark:text-slate-100 pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 dark:bg-[radial-gradient(circle_at_20%_20%,#1b2b4b_0,#0b1224_38%,#050911_65%)] relative overflow-hidden transition-colors">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 -top-40 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl dark:bg-sky-900/30" />
-        <div className="absolute right-[-20%] top-10 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl dark:bg-indigo-900/20" />
-        <div className="absolute left-10 bottom-0 h-64 w-64 rounded-full bg-white shadow-2xl shadow-white/40 dark:bg-slate-900 dark:shadow-slate-900/40" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.12),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(139,92,246,0.12),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.3),transparent_45%)] dark:bg-[radial-gradient(circle_at_25%_25%,rgba(59,130,246,0.1),transparent_32%),radial-gradient(circle_at_80%_10%,rgba(76,29,149,0.18),transparent_38%),linear-gradient(135deg,rgba(15,23,42,0.7),rgba(0,0,0,0.35))]" />
+        <div className="absolute -left-32 -top-40 h-96 w-96 rounded-full bg-sky-200/50 blur-3xl" />
+        <div className="absolute right-[-20%] top-10 h-[28rem] w-[28rem] rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(14,116,255,0.18),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(79,70,229,0.16),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.35),transparent_45%)] dark:bg-[radial-gradient(circle_at_12%_22%,rgba(56,189,248,0.18),transparent_32%),radial-gradient(circle_at_82%_8%,rgba(37,99,235,0.22),transparent_36%),linear-gradient(145deg,rgba(10,17,35,0.9),rgba(6,12,24,0.85))]" />
       </div>
       {/* Navbar */}
-      <nav className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-white/60 bg-white/70 dark:bg-slate-900/70 dark:border-white/10">
+      <nav className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-white/60 bg-white/80 dark:bg-slate-900/70 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setView(AppView.LANDING)}
           >
-            <div className="w-9 h-9 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-slate-900/15 dark:bg-white dark:text-slate-900">
+            <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-indigo-700 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-slate-900/25">
               H
             </div>
             <div className="flex flex-col leading-tight">
