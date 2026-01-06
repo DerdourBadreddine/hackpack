@@ -186,13 +186,15 @@ export const Generator: React.FC<GeneratorProps> = ({
     return (
       <div className="max-w-xl mx-auto pt-20 px-4 text-center">
         <div className="mb-8 relative">
-          <div className="w-20 h-20 bg-white rounded-full shadow-lg mx-auto flex items-center justify-center relative z-10">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div className="w-24 h-24 bg-white rounded-[28px] shadow-xl mx-auto flex items-center justify-center relative z-10 dark:bg-slate-900 dark:border dark:border-white/10">
+            <Loader2 className="w-9 h-9 text-primary animate-spin" />
           </div>
-          <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full animate-pulse" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-indigo-400/10 to-white/0 blur-3xl rounded-full animate-pulse dark:from-primary/30 dark:via-white/10" />
         </div>
-        <h2 className="text-2xl font-bold mb-6">Building {projectName}...</h2>
-        <Card className="text-left font-mono text-xs text-slate-500 min-h-[200px] flex flex-col justify-end">
+        <h2 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+          Building {projectName}...
+        </h2>
+        <Card className="text-left font-mono text-xs text-slate-500 min-h-[220px] flex flex-col justify-end bg-white/90 dark:bg-slate-900/70">
           {logs.map((log, i) => (
             <div key={i} className="mb-1 last:text-primary last:font-bold">
               <span className="text-slate-300 mr-2">➜</span>
