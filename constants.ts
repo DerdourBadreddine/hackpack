@@ -1,3 +1,4 @@
+import { Braces, Database, FlaskConical, Smartphone, Zap } from "lucide-react";
 import { Template } from "./types";
 
 export const TEMPLATES: Template[] = [
@@ -7,7 +8,7 @@ export const TEMPLATES: Template[] = [
     description:
       "Complete stack with Tailwind, Auth stub, and API routes ready for Vercel.",
     techStack: ["Next.js", "Tailwind", "TypeScript"],
-    icon: "⚡️",
+    icon: Zap,
     repoUrl: "github.com/hackpack/next-starter",
     category: "Web",
     stars: 124,
@@ -22,7 +23,7 @@ export const TEMPLATES: Template[] = [
     description:
       "Lightweight REST API with SQLite setup and Dockerfile included.",
     techStack: ["Express", "Node.js", "Docker"],
-    icon: "🚀",
+    icon: Braces,
     repoUrl: "github.com/hackpack/express-api",
     category: "API",
     stars: 98,
@@ -37,7 +38,7 @@ export const TEMPLATES: Template[] = [
     description:
       "Python Flask server with Scikit-learn ready for model serving.",
     techStack: ["Python", "Flask", "Scikit-learn"],
-    icon: "🤖",
+    icon: FlaskConical,
     repoUrl: "github.com/hackpack/flask-ml",
     category: "Data",
     stars: 142,
@@ -52,7 +53,7 @@ export const TEMPLATES: Template[] = [
     description:
       "React Native boilerplate with Navigation and polished UI components.",
     techStack: ["React Native", "Expo", "TypeScript"],
-    icon: "📱",
+    icon: Smartphone,
     repoUrl: "github.com/hackpack/expo-stub",
     category: "Mobile",
     stars: 76,
@@ -67,7 +68,7 @@ export const TEMPLATES: Template[] = [
     description:
       "React frontend with pre-configured Supabase client and Auth UI.",
     techStack: ["React", "Supabase", "Postgres"],
-    icon: "🔥",
+    icon: Database,
     repoUrl: "github.com/hackpack/supabase-crud",
     category: "Web",
     stars: 153,

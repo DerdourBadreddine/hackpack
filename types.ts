@@ -1,9 +1,11 @@
+import type React from "react";
+
 export interface Template {
   id: string;
   name: string;
   description: string;
   techStack: string[];
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
   repoUrl: string;
   category: "Web" | "Mobile" | "API" | "Data";
   stars: number;

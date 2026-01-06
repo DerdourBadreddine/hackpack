@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Template, Project } from "../types";
 import { Button, Input, Card, useToast } from "../components/UI";
-import { ArrowRight, Github, Rocket, CheckCircle, Loader2 } from "lucide-react";
+import { Github, Rocket, Loader2 } from "lucide-react";
 
 interface GeneratorProps {
   template: Template;
@@ -96,8 +96,8 @@ export const Generator: React.FC<GeneratorProps> = ({
           ← Back to Templates
         </button>
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-white rounded-2xl shadow-glass flex items-center justify-center text-3xl mx-auto mb-6">
-            {template.icon}
+          <div className="w-16 h-16 bg-slate-900 text-white rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6">
+            <template.icon className="w-6 h-6" />
           </div>
           <h2 className="text-3xl font-display font-bold text-slate-900 mb-2">
             Configure Project
@@ -107,7 +107,7 @@ export const Generator: React.FC<GeneratorProps> = ({
           </p>
         </div>
 
-        <Card>
+        <Card className="border border-white/80 bg-white/90">
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">

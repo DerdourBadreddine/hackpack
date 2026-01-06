@@ -8,10 +8,11 @@ import {
   Github,
   ExternalLink,
   CheckSquare,
-  Plus,
-  Code,
   Box,
   Rocket,
+  ArrowUpRight,
+  ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 
 export default function App() {
@@ -60,20 +61,30 @@ export default function App() {
   }, [categoryFilter]);
 
   return (
-    <div className="min-h-screen text-slate-800 pb-20">
+    <div className="min-h-screen text-slate-900 pb-20 bg-gradient-to-b from-slate-50 via-white to-slate-100 relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-32 -top-40 h-96 w-96 rounded-full bg-sky-200/40 blur-3xl" />
+        <div className="absolute right-[-20%] top-10 h-[28rem] w-[28rem] rounded-full bg-indigo-200/30 blur-3xl" />
+        <div className="absolute left-10 bottom-0 h-64 w-64 rounded-full bg-white shadow-2xl shadow-white/40" />
+      </div>
       {/* Navbar */}
-      <nav className="sticky top-0 z-40 w-full glass border-b border-white/40">
+      <nav className="sticky top-0 z-40 w-full backdrop-blur-md border-b border-white/60 bg-white/70">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setView(AppView.LANDING)}
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-blue-400 rounded-lg flex items-center justify-center text-white font-bold">
+            <div className="w-9 h-9 bg-slate-900 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-slate-900/15">
               H
             </div>
-            <span className="font-display font-semibold text-lg tracking-tight">
-              Hackpack
-            </span>
+            <div className="flex flex-col leading-tight">
+              <span className="font-display font-semibold text-lg tracking-tight">
+                Hackpack
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.28em] text-slate-400 font-semibold">
+                Studio
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -94,8 +105,8 @@ export default function App() {
               </div>
             ) : (
               <Button
-                variant="glass"
-                className="py-2 px-4 text-sm"
+                variant="secondary"
+                className="py-2 px-4 text-sm rounded-xl shadow-none border border-slate-200 hover:border-slate-300"
                 onClick={handleLogin}
               >
                 <Github className="w-4 h-4" /> Sign in
@@ -106,31 +117,103 @@ export default function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="animate-slide-up">
+      <main className="animate-slide-up relative z-10">
         {view === AppView.LANDING && (
           <>
             {/* Hero */}
-            <section className="relative pt-20 pb-16 px-6 text-center max-w-4xl mx-auto">
-              <Badge>v1.0 Public Beta</Badge>
-              <h1 className="mt-6 text-5xl md:text-7xl font-display font-bold tracking-tight text-slate-900 mb-6">
-                Turn "stuck" into{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
-                  shipped
-                </span>
-              </h1>
-              <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Hackpack feels like a mini hackathon: fast auth, a real repo, a
-                README that tells you what to do, and a deploy link before the
-                coffee cools.
-              </p>
-              {!user && (
-                <Button
-                  className="mx-auto pl-5 pr-6 h-14 text-lg"
-                  onClick={handleLogin}
-                >
-                  <Github className="w-5 h-5" /> Login with GitHub to start
-                </Button>
-              )}
+            <section className="relative pt-20 pb-12 px-6 max-w-6xl mx-auto flex flex-col gap-10">
+              <div className="grid lg:grid-cols-2 gap-10 items-center">
+                <div className="text-left">
+                  <div className="flex items-center gap-3">
+                    <Badge>v1.0 Public Beta</Badge>
+                    <div className="flex items-center gap-2 text-xs text-slate-500">
+                      <ShieldCheck className="w-4 h-4" />
+                      Private by design
+                    </div>
+                  </div>
+                  <h1 className="mt-6 text-5xl md:text-6xl font-display font-bold tracking-tight text-slate-900 leading-tight">
+                    Ship production-ready bases with an Apple-grade polish.
+                  </h1>
+                  <p className="text-lg text-slate-500 max-w-2xl mt-6 leading-relaxed">
+                    Auth, repos, and deploys in one flow. Hackpack assembles your
+                    stack, writes the README, and hands you a live URL. No emojis,
+                    just crisp UI that feels ready for a client demo.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-3 mt-8">
+                    <Button className="pl-5 pr-6 h-12 text-base" onClick={handleLogin}>
+                      <Github className="w-5 h-5" /> Login with GitHub
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      className="h-12 px-4 text-base rounded-xl"
+                      onClick={() => setCategoryFilter("Web")}
+                    >
+                      Browse templates <ArrowUpRight className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="glass-panel rounded-3xl p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)] border border-white/70">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.28em] text-slate-400 font-semibold">
+                          Live preview
+                        </p>
+                        <h3 className="text-2xl font-semibold text-slate-900 mt-1">
+                          Guided creation
+                        </h3>
+                      </div>
+                      <Sparkles className="w-5 h-5 text-primary" />
+                    </div>
+                    <div className="space-y-3 text-sm text-slate-700">
+                      <div className="flex items-center gap-3 bg-white/80 rounded-2xl p-3 border border-slate-100">
+                        <div className="h-10 w-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center">
+                          <Rocket className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-slate-900">Provision repo</p>
+                          <p className="text-slate-500 text-xs">GitHub OAuth, branch protection, and tasks.</p>
+                        </div>
+                        <span className="text-[11px] text-green-600 font-semibold px-2 py-1 bg-green-50 rounded-lg">
+                          Auto
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100">
+                        <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-primary to-indigo-500 text-white flex items-center justify-center">
+                          <Zap className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-slate-900">Deploy instantly</p>
+                          <p className="text-slate-500 text-xs">Vercel-ready config with env placeholders.</p>
+                        </div>
+                        <ArrowUpRight className="w-4 h-4 text-slate-400" />
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/70 rounded-2xl p-3 border border-slate-100">
+                        <div className="h-10 w-10 rounded-2xl bg-slate-100 text-slate-900 flex items-center justify-center">
+                          <CheckSquare className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-slate-900">Launch checklist</p>
+                          <p className="text-slate-500 text-xs">Issue queue with the first 3 hours mapped.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-slate-600">
+                {["Auth & repo wiring", "Production defaults", "Fast handoff", "Client-safe UI"].map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl bg-white/70 border border-slate-100 p-3 flex items-center gap-2 shadow-[0_10px_40px_-32px_rgba(15,23,42,0.4)]"
+                  >
+                    <div className="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-semibold">
+                      ●
+                    </div>
+                    <span className="font-medium text-slate-800">{item}</span>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Templates Grid */}
@@ -168,11 +251,11 @@ export default function App() {
                   <Card
                     key={t.id}
                     onClick={() => handleSelectTemplate(t)}
-                    className="group h-full flex flex-col"
+                    className="group h-full flex flex-col border border-white/70 bg-white/80 hover:bg-white shadow-[0_24px_80px_-48px_rgba(15,23,42,0.6)]"
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-2xl shadow-sm border border-slate-100 group-hover:scale-110 transition-transform duration-300">
-                        {t.icon}
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center shadow-lg shadow-slate-900/10 group-hover:-translate-y-1 transition-all">
+                        <t.icon className="w-5 h-5" />
                       </div>
                       <Badge>{t.category}</Badge>
                     </div>
@@ -196,11 +279,15 @@ export default function App() {
                       {[...t.techStack, ...t.tags].slice(0, 6).map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded"
+                          className="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded-lg"
                         >
                           {tech}
                         </span>
                       ))}
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-sm text-primary font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span>View flow</span>
+                      <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </Card>
                 ))}
