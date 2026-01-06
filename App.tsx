@@ -258,7 +258,9 @@ export default function App() {
                     <div className="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-xs font-semibold dark:bg-white dark:text-slate-900">
                       ●
                     </div>
-                    <span className="font-medium text-slate-800 dark:text-white">{item}</span>
+                    <span className="font-medium text-slate-800 dark:text-white">
+                      {item}
+                    </span>
                   </div>
                 ))}
               </div>

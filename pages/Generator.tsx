@@ -151,21 +151,27 @@ export const Generator: React.FC<GeneratorProps> = ({
 
         <div className="mt-6 grid md:grid-cols-3 gap-4 text-left text-sm text-slate-600 dark:text-slate-300">
           <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
-            <p className="font-semibold text-slate-800 mb-1 dark:text-white">What happens</p>
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">
+              What happens
+            </p>
             <p>
               We clone {template.name}, rename packages, and prep README/issues
               before first push.
             </p>
           </div>
           <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
-            <p className="font-semibold text-slate-800 mb-1 dark:text-white">You own it</p>
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">
+              You own it
+            </p>
             <p>
               Repos stay in your GitHub. Tokens never touch our storage in a
               real build.
             </p>
           </div>
           <div className="p-4 bg-white/70 rounded-2xl border border-slate-100 dark:bg-white/5 dark:border-white/10">
-            <p className="font-semibold text-slate-800 mb-1 dark:text-white">Deploy fast</p>
+            <p className="font-semibold text-slate-800 mb-1 dark:text-white">
+              Deploy fast
+            </p>
             <p>
               We trigger the template deploy hook so you get a live URL in
               minutes.
